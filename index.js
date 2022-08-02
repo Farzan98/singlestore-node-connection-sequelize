@@ -1,11 +1,12 @@
 import Sequelize from 'sequelize';
 
 // TODO: adjust these connection details to match your SingleStore deployment:
-const HOST = 'localhost';
 const PORT = 3306;
-const USER = 'root';
-const PASSWORD = 'password_here';
-const DATABASE = 'acme';
+const HOST =
+"svc-2445a0c1-7220-4dbc-a398-a2892efc6393-dml.aws-virginia-2.svc.singlestore.com";
+const USER = "admin";
+const PASSWORD = "w4McV2amK78PeyH";
+const DATABASE = "acme";
 
 // main is run at the end
 async function main() {
@@ -19,7 +20,7 @@ async function main() {
 
     const Message = init(sequelize);
     
-    const id = await create({Message, content: 'Inserted row'});
+    const id = await create({Message, content: 'Inserted row with sequelize'});
     console.log(`Inserted row id ${id}`);
 
     const msg = await readOne({Message, id});
@@ -30,7 +31,7 @@ async function main() {
       console.log(`${msg.id}, ${msg.content}, ${msg.createdate}`);
     }
 
-    await update({Message, id, content: 'Updated row'});
+    await update({Message, id, content: 'Updated row with sequelize'});
     console.log(`Updated row id ${id}`);
 
     const messages = await readAll({Message});
@@ -67,6 +68,7 @@ function init(sequelize) {
   }, {
     timestamps: false
   });
+  console.log(`Connection established with database.`);
   return Message;
 }
 
